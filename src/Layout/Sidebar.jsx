@@ -5,7 +5,7 @@ function Sidebar() {
     return (
         <div className='h-screen w-[250px] bg-blue-950 flex flex-col justify-items-start pl-3 pt-1'>
             <h1 className='text-white text-xl font-semibold'>Military Asset Management</h1>
-            <Link to="">
+            <Link to="/home">
                 <div className='flex justify-start mt-7 gap-3'>
                     <i class="fa-regular fa-house text-white text-xl"></i>
                     <h1 className='font-semibold text-white'>Dashboard</h1>
