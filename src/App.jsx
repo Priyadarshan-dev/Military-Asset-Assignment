@@ -8,23 +8,29 @@ import Purchases from "./Pages/Purchases";
 import Settings from "./Pages/Settings";
 import Transfers from "./Pages/Transfers";
 import Users from "./Pages/Users";
-
+import Layout from "./Layouts/Layout";
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Login />}></Route>
-      <Route path="/home" element={<Home />}></Route>
-      <Route path="/assets" element={<Home><Assets /></Home>}></Route>
-      <Route path="/transfers" element={<Home><Assignments /></Home>}></Route>
-      <Route path="/purchases" element={<Home><Expenditures /></Home>}></Route>
-      <Route path="/assignments" element={<Home><Purchases /></Home>}></Route>
-      <Route path="/expenditure" element={<Home><Settings /></Home>}></Route>
-      <Route path="/users" element={<Home><Transfers /></Home>}></Route>
-      <Route path="/settings" element={<Home><Users /></Home>}></Route>
+      {/* Login Page - no sidebar/navbar */}
+      <Route path="/" element={<Login />} />
+
+      {/* Home Page - has its own layout */}
+      <Route path="/home" element={<Home />} />
+
+      {/* All other pages use Layout */}
+      <Route element={<Layout/>}>
+        <Route path="/assets" element={<Assets />} />
+        <Route path="/transfers" element={<Transfers />} />
+        <Route path="/purchases" element={<Purchases />} />
+        <Route path="/assignments" element={<Assignments />} />
+        <Route path="/expenditure" element={<Expenditures />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/settings" element={<Settings />} />
+      </Route>
     </Routes>
   );
 }
 
 export default App;
-
