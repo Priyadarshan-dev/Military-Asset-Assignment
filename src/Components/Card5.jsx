@@ -1,45 +1,115 @@
 import { useEffect, useState } from "react";
+import { fetchWithAuth } from "../Services/dashboard";
 
 function Card5() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch("https://servermms.onrender.com/api/dashboard", {
-      headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODFmYTQxMzNmZTg0MmMxNjFiOTdmOGUiLCJpYXQiOjE3NTY4OTMyMTksImV4cCI6MTc1Njk3OTYxOX0.xGYA7R39wq69ip3R1UwRIJkkB_fZXAx8kjwwkD6fqus`,
-      },
-    })
-      .then((res) => res.json())
+    fetchWithAuth("https://servermms.onrender.com/api/dashboard")
       .then((json) => setData(json))
       .catch((err) => console.error(err));
   }, []);
 
-    if (!data) return <p>Loading...</p>;
+  if (!data) return <p>Loading...</p>;
 
   return (
-    <div className="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-2 pr-14 pb-15">
-      <div className="h-[237px] bg-white shadow p-4 overflow-y-auto">
-        <h1 className="font-semibold mb-2">Recent Assignments</h1>
-        {data.recentAssignments?.map((item) => (
-          <div key={item._id} className="border-b py-2">
-            <p>{item.assetName} - {item.quantity}</p>
-            <p className="text-sm text-gray-500">
-              {item.base} | {item.status}
-            </p>
-          </div>
-        ))}
+    <div className="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-2 pr-14 pb-10">
+      {/* Recent Assignments Table */}
+      <div className="h-[237px] bg-white shadow rounded-lg p-4 overflow-y-auto">
+        <div className="px-4 py-5 flex justify-between items-center">
+          <h3 className="text-lg leading-6 font-medium text-gray-900">
+            Recent Assignments
+          </h3>
+          <h1 className="text-sm font-medium text-primary-600">View all</h1>
+        </div>
+        <table className="w-full mt-5">
+          <thead className="bg-gray-50 border-b border-gray-200">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Asset
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Assigned To
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Quantity
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Status
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Date
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.recentAssignments?.map((item) => (
+              <tr key={item._id}>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {item.assetName}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {item.assignedTo?.name} ({item.assignedTo?.id})
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {item.quantity}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {item.status}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {new Date(item.startDate).toLocaleDateString()}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
-      <div className="h-[237px] bg-white shadow p-4 overflow-y-auto">
-        <h1 className="font-semibold mb-2">Recent Expenditures</h1>
-        {data.recentExpenditures?.map((item) => (
-          <div key={item._id} className="border-b py-2">
-            <p>{item.assetName} - {item.quantity}</p>
-            <p className="text-sm text-gray-500">
-              {item.base} | {item.reason}
-            </p>
-          </div>
-        ))}
+      {/* Recent Expenditures Table */}
+      <div className="h-[237px] bg-white shadow p-4 rounded-lg overflow-y-auto">
+        <div className="px-4 py-5 flex justify-between items-center">
+          <h1 className="text-lg leading-6 font-medium text-gray-900">
+            Recent Expenditures
+          </h1>
+          <h1 className="text-sm font-medium text-primary-600">View all</h1>
+        </div>
+        <table className="w-full mt-5">
+          <thead className="bg-gray-50 border-b border-gray-200">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Asset
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Reason
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Quantity
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Date
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.recentExpenditures?.map((item) => (
+              <tr key={item._id}>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {item.assetName}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {item.reason}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {item.quantity}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {new Date(item.expenditureDate).toLocaleDateString()}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

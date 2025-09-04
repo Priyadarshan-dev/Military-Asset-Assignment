@@ -8,8 +8,8 @@ import Card5 from '../Components/Card5'
 function Body() {
   return (
     <>
-      <div className='pt-[50px] pl-[72px] flex flex-col justify-items-start'>
-        <h1 className='text-2xl font-semibold'>Dashboard</h1>
+      <div className='pt-[50px] pl-[72px] flex flex-col justify-items-start bg-gray-50'>
+        <h1 className='text-2xl font-semibold text-gray-900'>Dashboard</h1>
         <Card1></Card1>
         <Card2></Card2>
         <Card3></Card3>

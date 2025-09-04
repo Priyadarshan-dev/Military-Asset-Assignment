@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
+import { fetchWithAuth } from "../Services/dashboard";// import your reusable fetch function
 
 function Card2() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch("https://servermms.onrender.com/api/dashboard", {
-      headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODFmYTQxMzNmZTg0MmMxNjFiOTdmOGUiLCJpYXQiOjE3NTY4OTMyMTksImV4cCI6MTc1Njk3OTYxOX0.xGYA7R39wq69ip3R1UwRIJkkB_fZXAx8kjwwkD6fqus`,
-      },
-    })
-      .then((res) => res.json())
+    fetchWithAuth("https://servermms.onrender.com/api/dashboard")
       .then((json) => setData(json))
       .catch((err) => console.error(err));
   }, []);
@@ -20,17 +16,56 @@ function Card2() {
 
   return (
     <div className="grid grid-cols-4 gap-5 pr-14 mt-5">
-      <div className="h-[80px] bg-white shadow flex items-center justify-center">
-        <h1>Total Assets: {data.summary.totalAssets}</h1>
+      <div className="h-[88px] bg-white shadow flex gap-5 items-center rounded-lg pl-4 justify-start">
+        <div className="h-[48px] w-[48px] flex items-center justify-center rounded-lg bg-green-300">
+          <img
+            src="/assets/images/3d-cube.png"
+            alt="cube icon"
+            className="h-6 w-6 invert brightness-0"
+          />
+        </div>
+        <div className="flex flex-col">
+          <h1>Total Assets</h1>
+          <h2>{data.summary.totalAssets}</h2>
+        </div>
       </div>
-      <div className="h-[80px] bg-white shadow flex items-center justify-center">
-        <h1>Available: {data.summary.totalAvailable}</h1>
+      <div className="h-[88px] bg-white gap-5 shadow flex items-center rounded-lg pl-4 justify-start">
+        <div className="h-[48px] w-[48px] rounded-lg flex items-center justify-center bg-green-300">
+          <img
+            src="/assets/images/trending.png"
+            alt="cube icon"
+            className="h-6 w-6 invert brightness-0"
+          /></div>
+        <div className="flex flex-col">
+          <h1>Available</h1>
+          <h2>{data.summary.totalAvailable}</h2>
+        </div>
       </div>
-      <div className="h-[80px] bg-white shadow flex items-center justify-center">
-        <h1>Assigned: {data.summary.totalAssigned}</h1>
+      <div className="h-[88px] bg-white  gap-5 shadow flex items-center rounded-lg pl-4 justify-start">
+        <div className="h-[48px] w-[48px] rounded-lg flex items-center justify-center bg-green-300">
+          <img
+            src="/assets/images/team.png"
+            alt="cube icon"
+            className="h-6 w-6 invert brightness-0"
+          />
+        </div>
+        <div className="flex flex-col">
+          <h1>Assigned</h1>
+          <h2> {data.summary.totalAssigned}</h2>
+        </div>
       </div>
-      <div className="h-[80px] bg-white shadow flex items-center justify-center">
-        <h1>Expended: {data.summary.totalExpended}</h1>
+      <div className="h-[88px] bg-white shadow gap-5 flex items-center rounded-lg pl-4 justify-start">
+        <div className="h-[48px] w-[48px] rounded-lg flex items-center justify-center bg-green-300">
+          <img
+            src="/assets/images/trend.png"
+            alt="cube icon"
+            className="h-6 w-6 invert brightness-0"
+          />
+        </div>
+        <div className="flex flex-col">
+          <h1>Expended</h1>
+          <h2>{data.summary.totalExpended}</h2>
+        </div>
       </div>
     </div>
   );
