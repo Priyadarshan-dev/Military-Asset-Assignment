@@ -17,7 +17,7 @@ function Card2() {
   return (
     <div className="grid grid-cols-4 gap-5 pr-14 mt-5">
       <div className="h-[88px] bg-white shadow flex gap-5 items-center rounded-lg pl-4 justify-start">
-        <div className="h-[48px] w-[48px] flex items-center justify-center rounded-lg bg-green-300">
+        <div className="h-[48px] w-[48px] flex items-center justify-center rounded-lg bg-primary-600">
           <img
             src="/assets/images/3d-cube.png"
             alt="cube icon"
@@ -30,7 +30,7 @@ function Card2() {
         </div>
       </div>
       <div className="h-[88px] bg-white gap-5 shadow flex items-center rounded-lg pl-4 justify-start">
-        <div className="h-[48px] w-[48px] rounded-lg flex items-center justify-center bg-green-300">
+        <div className="h-[48px] w-[48px] rounded-lg flex items-center justify-center bg-green-600">
           <img
             src="/assets/images/trending.png"
             alt="cube icon"
@@ -42,7 +42,7 @@ function Card2() {
         </div>
       </div>
       <div className="h-[88px] bg-white  gap-5 shadow flex items-center rounded-lg pl-4 justify-start">
-        <div className="h-[48px] w-[48px] rounded-lg flex items-center justify-center bg-green-300">
+        <div className="h-[48px] w-[48px] rounded-lg flex items-center justify-center bg-yellow-500">
           <img
             src="/assets/images/team.png"
             alt="cube icon"
@@ -55,7 +55,7 @@ function Card2() {
         </div>
       </div>
       <div className="h-[88px] bg-white shadow gap-5 flex items-center rounded-lg pl-4 justify-start">
-        <div className="h-[48px] w-[48px] rounded-lg flex items-center justify-center bg-green-300">
+        <div className="h-[48px] w-[48px] rounded-lg flex items-center justify-center bg-red-600">
           <img
             src="/assets/images/trend.png"
             alt="cube icon"

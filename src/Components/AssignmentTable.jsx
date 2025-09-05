@@ -1,57 +1,125 @@
 import React, { useEffect, useState } from "react";
 import { fetchWithAuth } from "../Services/dashboard";
 
-
 function AssignmentTable() {
     const [data, setData] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(10);
+    const [totalItems, setTotalItems] = useState(0);
 
     useEffect(() => {
-        fetchWithAuth("https://servermms.onrender.com/api/assignments?sortBy=startDate&sortOrder=desc&limit=10&skip=0")
-            .then((json) => setData(json))
+        const skip = (currentPage - 1) * itemsPerPage;
+        fetchWithAuth(
+            `https://servermms.onrender.com/api/assignments?sortBy=startDate&sortOrder=desc&limit=${itemsPerPage}&skip=${skip}`
+        )
+            .then((json) => {
+                setData(json);
+                setTotalItems(json.total || json.count || 50);
+            })
             .catch((err) => console.error(err));
-    }, [])
+    }, [currentPage, itemsPerPage]);
 
     if (!data) return <p>Loading...</p>;
 
-       const assignmentArray = Array.isArray(data) ? data : data.assignments || data.data || [];
+    const assignmentArray = Array.isArray(data) ? data : data.assignments || data.data || [];
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
 
     return (
         <div className="mt-5">
-            <table className="h-[202px] w-full bg-white shadow">
-                <thead>
+            <table className="w-full bg-white shadow">
+                <thead className="bg-gray-50">
                     <tr>
-                        <th><h1 className="text-xl font-semibold bg-gray-100 p-3">ASSET</h1></th>
-                        <th><h1 className="text-xl font-semibold bg-gray-100 p-3">BASE</h1></th>
-                        <th><h1 className="text-xl font-semibold bg-gray-100 p-3">ASSIGNED TO</h1></th>
-                        <th><h1 className="text-xl font-semibold bg-gray-100 p-3">QUANTITY</h1></th>
-                        <th><h1 className="text-xl font-semibold bg-gray-100 p-3">PURPOSE</h1></th>
-                        <th><h1 className="text-xl font-semibold bg-gray-100 p-3">STATUS</h1></th>
-                        <th><h1 className="text-xl font-semibold bg-gray-100 p-3">START DATE</h1></th>
-                        <th><h1 className="text-xl font-semibold bg-gray-100 p-3">ACTIONS</h1></th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ASSET</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">BASE</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ASSIGNED TO</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">QUANTITY</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">PURPOSE</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">STATUS</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">START DATE</th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
                     {assignmentArray.map((item) => (
-                        <tr key={item._id} className="border-b">
-                            <td className="p-3">{item.assetName}</td>
-                            <td className="p-3">{item.base}</td>
-                            <td className="p-3">
+                        <tr key={item._id} className="border-b border-gray-200">
+                            <td className="px-6 whitespace-nowrap text-sm font-semibold text-primary-600">
+                                {item.assetName}
+                                <div className="text-gray-500">{item.assetType}</div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.base}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 {item.assignedTo?.name || item.assignedTo?.fullName || "Unknown"}
                             </td>
-                            <td className="p-3">{item.quantity}</td>
-                            <td className="p-3">{item.purpose}</td>
-                            <td className="p-3">{item.status}</td>
-                            <td className="p-3">
-                                {item.startDate
-                                    ? new Date(item.startDate).toLocaleDateString()
-                                    : ""}
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.quantity}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.purpose}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.status}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {item.startDate ? new Date(item.startDate).toLocaleDateString() : ""}
                             </td>
-                            <td className="p-3">
+                            <td className="p-8">
                                 <button className="text-blue-500 mr-2">View</button>
-                                <button className="text-red-500">Return</button>
                             </td>
                         </tr>
                     ))}
+
+                    {/* Pagination Row */}
+                    <tr>
+                        <td colSpan="8" className="px-6 py-4">
+                            <div className="flex justify-between items-center">
+                                {/* Showing info */}
+                                <p className="text-sm text-gray-600">
+                                    Showing {(currentPage - 1) * itemsPerPage + 1} to{" "}
+                                    {Math.min(currentPage * itemsPerPage, totalItems)} of {totalItems} results
+                                </p>
+
+                                {/* Page Controls */}
+                                <div className="flex items-center space-x-2">
+                                    <select
+                                        value={itemsPerPage}
+                                        onChange={(e) => {
+                                            setItemsPerPage(Number(e.target.value));
+                                            setCurrentPage(1);
+                                        }}
+                                        className="px-2 py-1 text-sm"
+                                    >
+                                        {[10, 20, 50].map((size) => (
+                                            <option key={size} value={size}>
+                                                {size} per page
+                                            </option>
+                                        ))}
+                                    </select>
+
+                                    <button
+                                        onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                                        disabled={currentPage === 1}
+                                        className="px-3 py-1 border rounded disabled:opacity-50"
+                                    >
+                                        &lt;
+                                    </button>
+
+                                    {Array.from({ length: totalPages }, (_, i) => (
+                                        <button
+                                            key={i}
+                                            onClick={() => setCurrentPage(i + 1)}
+                                            className={`px-3 py-1 border rounded ${
+                                                currentPage === i + 1 ? "bg-blue-500 text-white" : ""
+                                            }`}
+                                        >
+                                            {i + 1}
+                                        </button>
+                                    ))}
+
+                                    <button
+                                        onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                                        disabled={currentPage === totalPages}
+                                        className="px-3 py-1 border rounded disabled:opacity-50"
+                                    >
+                                        &gt;
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
