@@ -20,14 +20,14 @@ function GeneralCard() {
           <input
             type="text"
             defaultValue="Department of Defense"
-            className="w-full border border-gray-200  mt-2 rounded-lg shadow"
+            className="w-full border border-gray-200 mt-2 rounded-lg shadow"
           />
         </div>
 
         {/* Default Currency */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Default Currency</label>
-          <select className="w-full border border-gray-200  mt-2 rounded-lg shadow">
+          <select className="w-full border border-gray-200 mt-2 rounded-lg shadow">
             <option>USD ($)</option>
             <option>EUR (€)</option>
             <option>INR (₹)</option>
@@ -37,7 +37,7 @@ function GeneralCard() {
         {/* Theme */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Theme</label>
-          <select className="w-full border border-gray-200  mt-2 rounded-lg shadow">
+          <select className="w-full border border-gray-200 mt-2 rounded-lg shadow">
             <option>Default</option>
             <option>Dark</option>
             <option>Light</option>
@@ -47,7 +47,7 @@ function GeneralCard() {
         {/* Date Format */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Date Format</label>
-          <select className="w-full border border-gray-200  mt-2 rounded-lg shadow">
+          <select className="w-full border border-gray-200 mt-2 rounded-lg shadow">
             <option>MM/DD/YYYY</option>
             <option>DD/MM/YYYY</option>
           </select>
@@ -56,7 +56,7 @@ function GeneralCard() {
         {/* Time Format */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Time Format</label>
-          <select className="w-full border border-gray-200  mt-2 rounded-lg shadow">
+          <select className="w-full border border-gray-200 mt-2 rounded-lg shadow">
             <option>12-hour (AM/PM)</option>
             <option>24-hour</option>
           </select>
@@ -65,7 +65,7 @@ function GeneralCard() {
         {/* Timezone */}
         <div className="md:col-span-2">
           <label className="block text-sm font-medium text-gray-700">Timezone</label>
-          <select className="w-[530px] border border-gray-200 mt-2 rounded-lg shadow">
+          <select className="w-full border border-gray-200 mt-2 rounded-lg shadow">
             <option>Eastern Time (ET)</option>
             <option>Central Time (CT)</option>
             <option>Pacific Time (PT)</option>
@@ -74,7 +74,11 @@ function GeneralCard() {
 
         {/* Email Notifications */}
         <div className="flex items-center space-x-2 md:col-span-2">
-          <input type="checkbox" defaultChecked className="h-4 w-4 text-blue-600 border-gray-200 rounded" />
+          <input
+            type="checkbox"
+            defaultChecked
+            className="h-4 w-4 text-blue-600 border-gray-200 rounded"
+          />
           <label className="text-sm text-gray-700">Enable email notifications</label>
         </div>
 

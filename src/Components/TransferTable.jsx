@@ -48,7 +48,7 @@ function TransferTable() {
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.fromBase || item.from || item.sourceBase}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.toBase || item.to || item.destinationBase}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.quantity || item.amount}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.status || item.transferStatus}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><span className="rounded-full text-xs font-medium bg-green-100 text-green-800 px-2 py-1">{item.status || item.transferStatus}</span></td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 {item.createdAt ? new Date(item.createdAt).toLocaleDateString() : ""}
                             </td>
@@ -100,9 +100,8 @@ function TransferTable() {
                                         <button
                                             key={i}
                                             onClick={() => setCurrentPage(i + 1)}
-                                            className={`px-3 py-1 border rounded ${
-                                                currentPage === i + 1 ? "bg-blue-500 text-white" : ""
-                                            }`}
+                                            className={`px-3 py-1 border rounded ${currentPage === i + 1 ? "bg-blue-500 text-white" : ""
+                                                }`}
                                         >
                                             {i + 1}
                                         </button>

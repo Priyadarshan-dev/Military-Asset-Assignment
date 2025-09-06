@@ -50,7 +50,7 @@ function PurchasesTable() {
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.supplier || item.vendor}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.quantity || item.amount}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.totalCost || item.cost || 0}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.status || item.purchaseStatus}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><span className="rounded-full text-xs font-medium bg-green-100 text-green-800 px-2 py-1">{item.status || item.purchaseStatus}</span></td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 {item.purchaseDate ? new Date(item.purchaseDate).toLocaleDateString() : ""}
                             </td>
@@ -102,9 +102,8 @@ function PurchasesTable() {
                                         <button
                                             key={i}
                                             onClick={() => setCurrentPage(i + 1)}
-                                            className={`px-3 py-1 border rounded ${
-                                                currentPage === i + 1 ? "bg-blue-500 text-white" : ""
-                                            }`}
+                                            className={`px-3 py-1 border rounded ${currentPage === i + 1 ? "bg-blue-500 text-white" : ""
+                                                }`}
                                         >
                                             {i + 1}
                                         </button>

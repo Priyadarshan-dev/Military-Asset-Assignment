@@ -29,14 +29,14 @@ function Login() {
     };
 
     return (
-        <div className='flex flex-col h-screen justify-center items-center'>
-            <h1 className='text-3xl font-bold'>Military Asset Management</h1>
-            <h1>Sign in to your Account</h1>
-            <div className='h-[300px] w-[450px] pl-10 pt-8 pr-10 flex flex-col justify-items-start bg-white shadow-md rounded-2xl'>
+        <div className='flex flex-col h-screen justify-center items-center px-4'>
+            <h1 className='text-3xl font-bold text-center'>Military Asset Management</h1>
+            <h1 className='text-center'>Sign in to your Account</h1>
+            <div className='h-auto w-full max-w-sm sm:max-w-md md:w-[450px] md:h-[300px] pl-6 pr-6 sm:pl-10 sm:pr-10 pt-8 pb-5 flex flex-col justify-items-start bg-white shadow rounded-lg mt-4'>
                 <h1>Username</h1>
                 <input
                     type="text"
-                    className='mt-2 rounded shadow-md'
+                    className='mt-2 rounded shadow'
                     placeholder='Username'
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -52,7 +52,7 @@ function Login() {
                 <span className='mt-5 flex justify-end'>Forgot your password?</span>
                 <button
                     onClick={handleSignIn}
-                    className='h-[40px] rounded mt-5 bg-blue-600 '
+                    className='h-[40px] rounded mt-5 bg-blue-600'
                 >
                     <span className='text-white font-semibold'>Sign In</span>
                 </button>

@@ -44,7 +44,7 @@ function ExpenditureTable() {
                             <td className="px-6 whitespace-nowrap text-sm font-semibold text-primary-600">{item.assetName}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.base}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.quantity}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.reason || item.purpose}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><span className="rounded-full text-xs font-medium bg-green-100 text-green-800 px-2 py-1">{item.reason || item.purpose}</span></td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 {item.expendedBy?.name || item.expendedBy?.fullName || "Unknown"}
                             </td>
@@ -96,9 +96,8 @@ function ExpenditureTable() {
                                         <button
                                             key={i}
                                             onClick={() => setCurrentPage(i + 1)}
-                                            className={`px-3 py-1 border rounded ${
-                                                currentPage === i + 1 ? "bg-blue-500 text-white" : ""
-                                            }`}
+                                            className={`px-3 py-1 border rounded ${currentPage === i + 1 ? "bg-blue-500 text-white" : ""
+                                                }`}
                                         >
                                             {i + 1}
                                         </button>

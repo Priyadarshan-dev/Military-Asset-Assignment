@@ -52,7 +52,7 @@ function AssignmentTable() {
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.quantity}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.purpose}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.status}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><span className="rounded-full text-xs font-medium bg-green-100 text-green-800 px-2 py-1">{item.status}</span></td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 {item.startDate ? new Date(item.startDate).toLocaleDateString() : ""}
                             </td>

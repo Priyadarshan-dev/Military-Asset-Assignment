@@ -15,8 +15,8 @@ function Card2() {
   }
 
   return (
-    <div className="grid grid-cols-4 gap-5 pr-14 mt-5">
-      <div className="h-[88px] bg-white shadow flex gap-5 items-center rounded-lg pl-4 justify-start">
+     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 pr-4 md:pr-8 lg:pr-14 mt-5">
+     <div className="min-h-[88px] bg-white shadow flex gap-5 items-center rounded-lg pl-4 justify-start">
         <div className="h-[48px] w-[48px] flex items-center justify-center rounded-lg bg-primary-600">
           <img
             src="/assets/images/3d-cube.png"

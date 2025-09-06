@@ -13,9 +13,9 @@ function Card4() {
   if (!data) return <p>Loading...</p>;
 
   return (
-    <div className="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-2 pr-14">
+    <div className="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-2 lg:pr-14 pr-4">
       {/* Recent Transfers Table */}
-      <div className="h-[383px] bg-white rounded-lg p-4 shadow overflow-y-auto">
+      <div className="h-[383px] bg-white rounded-lg p-4  shadow overflow-y-auto">
         <div className="px-4 py-5 flex justify-between items-center">
           <h1 className="text-lg leading-6 font-medium text-gray-900">
             Recent Transfers

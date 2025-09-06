@@ -42,7 +42,7 @@ function BarChart() {
   };
 
   return (
-    <div className="w-[500px] h-[300px] mx-auto">
+    <div className="w-full h-[300px] md:h-[400px] max-w-4xl mx-auto p-4">
       <Bar data={data} options={options} />
     </div>
   );

@@ -13,7 +13,7 @@ function Card5() {
   if (!data) return <p>Loading...</p>;
 
   return (
-    <div className="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-2 pr-14 pb-10">
+    <div className="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-2 pr-4 lg:pr-14 pb-10">
       {/* Recent Assignments Table */}
       <div className="h-[237px] bg-white shadow rounded-lg p-4 overflow-y-auto">
         <div className="px-4 py-5 flex justify-between items-center">
