@@ -9,6 +9,11 @@ import Settings from "./Pages/Settings";
 import Transfers from "./Pages/Transfers";
 import Users from "./Pages/Users";
 import Layout from "./Layouts/Layout";
+import CreateAssets from "./Pages/CreateAssets";
+import CreateAssignment from "./Pages/CreateAssignment"
+import CreateExpenditure from "./Pages/CreateExpenditure"
+import CreatePurchase from "./Pages/CreatePurchase"
+import CreateTransfer from "./Pages/CreateTransfer"
 
 
 function App() {
@@ -21,12 +26,17 @@ function App() {
       <Route path="/home" element={<Home />} />
 
       {/* All other pages use Layout */}
-      <Route element={<Layout/>}>
+      <Route element={<Layout />}>
         <Route path="/assets" element={<Assets />} />
+        <Route path="/assets/new" element={<CreateAssets />} />
         <Route path="/transfers" element={<Transfers />} />
+        <Route path="/transfers/new" element={<CreateAssignment />} />
         <Route path="/purchases" element={<Purchases />} />
+        <Route path="/purchases/new" element={<CreatePurchase />} />
         <Route path="/assignments" element={<Assignments />} />
+        <Route path="/assignments/new" element={<CreateAssignment />} />
         <Route path="/expenditure" element={<Expenditures />} />
+        <Route path="/expenditure/new" element={<CreateExpenditure />} />
         <Route path="/users" element={<Users />} />
         <Route path="/settings" element={<Settings />} />
       </Route>

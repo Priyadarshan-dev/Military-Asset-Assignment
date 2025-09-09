@@ -15,6 +15,7 @@ function Card1() {
                         <option>All Bases</option>
                         <option>Base Alpha</option>
                         <option>Base Bravo</option>
+                        <option>Base Charlie</option>
                     </select>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 import React from 'react'
 import AssignmentTable from '../Components/AssignmentTable'
+import { Link } from "react-router-dom";
 
 function Assignments() {
   return (
@@ -15,14 +16,17 @@ function Assignments() {
                 className="h-4 w-4"
               />
               Filters</button>
-            <button className='h-[37px] w-[180px] btn-primary shadow flex justify-center items-center rounded-lg gap-2 '>
+            <Link
+              to="/assets/new"
+              className="h-[37px] w-[130px] btn-primary shadow flex justify-center items-center rounded-lg gap-2"
+            >
               <img
                 src="/assets/images/plus.png"
                 alt="cube icon"
                 className="h-4 w-4 invert brightness-0"
               />
-              New Assignment
-            </button>
+              Add Asset
+            </Link>
           </div>
         </div>
         <AssignmentTable></AssignmentTable>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchWithAuth } from "../Services/dashboard";// import your reusable fetch function
+import { fetchWithAuth } from "../Services/dashboard";
 
 function Card2() {
   const [data, setData] = useState(null);
