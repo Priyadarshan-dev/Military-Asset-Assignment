@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; // 👈 Import useNavigate
 import { fetchWithAuth } from "../Services/dashboard";
 
 function Card5() {
   const [data, setData] = useState(null);
+  const navigate = useNavigate(); // 👈 Initialize navigate
 
   useEffect(() => {
     fetchWithAuth("https://servermms.onrender.com/api/dashboard")
@@ -20,7 +22,13 @@ function Card5() {
           <h3 className="text-lg leading-6 font-medium text-gray-900">
             Recent Assignments
           </h3>
-          <h1 className="text-sm font-medium text-primary-600">View all</h1>
+          {/* 👇 Navigate to Assignments */}
+          <h1
+            className="text-sm font-medium text-primary-600 cursor-pointer hover:underline"
+            onClick={() => navigate("/assignments")}
+          >
+            View all
+          </h1>
         </div>
         <table className="w-full mt-5">
           <thead className="bg-gray-50 border-b border-gray-200">
@@ -72,7 +80,13 @@ function Card5() {
           <h1 className="text-lg leading-6 font-medium text-gray-900">
             Recent Expenditures
           </h1>
-          <h1 className="text-sm font-medium text-primary-600">View all</h1>
+          {/* 👇 Navigate to Expenditure */}
+          <h1
+            className="text-sm font-medium text-primary-600 cursor-pointer hover:underline"
+            onClick={() => navigate("/expenditure")}
+          >
+            View all
+          </h1>
         </div>
         <table className="w-full mt-5">
           <thead className="bg-gray-50 border-b border-gray-200">

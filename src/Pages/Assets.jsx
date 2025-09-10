@@ -37,14 +37,55 @@ function Assets() {
             </Link>
           </div>
         </div>
-
         {/* 🔥 Show filter box if showFilters is true */}
         {showFilters && (
-          <div className='mt-4 p-4 bg-gray-100 border rounded-lg'>
-            <p className='text-sm text-gray-700'>Filter box.</p>
+          <div className="mt-4 h-[200px] bg-white rounded-lg shadow">
+            {/* Header */}
+            <div className="pt-5 px-5 flex justify-between items-center">
+              <h1 className="text-lg font-semibold">Filters</h1>
+              <h1 className="cursor-pointer">X</h1>
+            </div>
+
+            {/* Select Row */}
+            <div className="flex gap-4 px-5 mt-4">
+              {/* Base Select */}
+              <div className="flex flex-col flex-1">
+                <h1 className="mb-1 text-sm sm:text-base">Base</h1>
+                <select className="bg-white shadow rounded-lg  border h-5 border-gray-300 text-sm sm:text-base">
+                  <option value="" hidden>Select Base</option>
+                  <option>Base Alpha</option>
+                  <option>Base Bravo</option>
+                  <option>Base Charlie</option>
+                </select>
+              </div>
+
+              {/* Asset Select */}
+              <div className="flex flex-col flex-1">
+                <h1 className="mb-1 text-sm sm:text-base">Asset Name</h1>
+                <select className="bg-white shadow rounded-lg h-5 border border-gray-300 text-sm sm:text-base">
+                  <option value="" hidden>Select Type</option>
+                  <option>Vehicle</option>
+                  <option>Weapon</option>
+                  <option>Ammunition</option>
+                  <option>Equipment</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div className="flex flex-col flex-1">
+                <h1 className="mb-1 text-sm sm:text-base">Search </h1>
+                <input type="text" placeholder='Search by name' className='bg-white shadow h-5 rounded-lg border border-gray-300 ' />
+              </div>
+            </div>
+            <div className='flex justify-end px-5 mt-5 gap-5'>
+              <button className='h-[40px] w-[80px] rounded bg-white shadow '>
+                Reset
+              </button>
+              <button className='h-[40px] w-[160px] rounded bg-blue-500 text-white shadow '>
+                Apply Filters
+              </button>
+            </div>
           </div>
         )}
-
         <AssetTable />
       </div>
     </>
