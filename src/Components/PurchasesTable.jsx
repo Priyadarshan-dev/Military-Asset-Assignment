@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchWithAuth } from "../Services/dashboard";
 
-function PurchasesTable() {
+function PurchasesTable({ filters }) {
     const [data, setData] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -9,15 +9,28 @@ function PurchasesTable() {
 
     useEffect(() => {
         const skip = (currentPage - 1) * itemsPerPage;
-        fetchWithAuth(
-            `https://servermms.onrender.com/api/purchases?sortBy=purchaseDate&sortOrder=desc&limit=${itemsPerPage}&skip=${skip}`
-        )
-            .then((json) => {
+        const params = new URLSearchParams({
+            sortBy: "purchaseDate",
+            sortOrder: "desc",
+            limit: itemsPerPage,
+            skip
+        });
+
+        // 🔹 Add filters to query
+        if (filters.fromBase) params.append("fromBase", filters.fromBase);
+        if (filters.toBase) params.append("toBase", filters.toBase);
+        if (filters.status) params.append("status", filters.status);
+        if (filters.startDate) params.append("startDate", filters.startDate);
+        if (filters.endDate) params.append("endDate", filters.endDate);
+        if (filters.searchQuery) params.append("search", filters.searchQuery);
+
+        fetchWithAuth(`https://servermms.onrender.com/api/purchases?${params.toString()}`)
+            .then(json => {
                 setData(json);
-                setTotalItems(json.total || json.count || 50); // fallback if API doesn’t return total
+                setTotalItems(json.total || json.count || 50);
             })
-            .catch((err) => console.error(err));
-    }, [currentPage, itemsPerPage]);
+            .catch(err => console.error(err));
+    }, [currentPage, itemsPerPage, filters]);
 
     if (!data) return <p>Loading...</p>;
 
@@ -50,7 +63,11 @@ function PurchasesTable() {
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.supplier || item.vendor}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.quantity || item.amount}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.totalCost || item.cost || 0}</td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><span className="rounded-full text-xs font-medium bg-green-100 text-green-800 px-2 py-1">{item.status || item.purchaseStatus}</span></td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <span className="rounded-full text-xs font-medium bg-green-100 text-green-800 px-2 py-1">
+                                    {item.status || item.purchaseStatus}
+                                </span>
+                            </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 {item.purchaseDate ? new Date(item.purchaseDate).toLocaleDateString() : ""}
                             </td>
@@ -60,63 +77,31 @@ function PurchasesTable() {
                         </tr>
                     ))}
 
-                    {/* Pagination Row */}
                     <tr>
                         <td colSpan="8" className="px-6 py-4">
                             <div className="flex justify-between items-center">
-                                {/* Showing info */}
                                 <p className="text-sm text-gray-600">
                                     Showing {(currentPage - 1) * itemsPerPage + 1} to{" "}
                                     {Math.min(currentPage * itemsPerPage, totalItems)} of {totalItems} results
                                 </p>
-
-                                {/* Controls */}
                                 <div className="flex items-center space-x-2">
-                                    {/* Per page */}
                                     <select
                                         value={itemsPerPage}
-                                        onChange={(e) => {
-                                            setItemsPerPage(Number(e.target.value));
-                                            setCurrentPage(1);
-                                        }}
+                                        onChange={(e) => { setItemsPerPage(Number(e.target.value)); setCurrentPage(1); }}
                                         className="px-2 py-1 text-sm"
                                     >
-                                        {[10, 20, 50].map((size) => (
-                                            <option key={size} value={size}>
-                                                {size} per page
-                                            </option>
-                                        ))}
+                                        {[10, 20, 50].map((size) => <option key={size} value={size}>{size} per page</option>)}
                                     </select>
 
-                                    {/* Prev */}
-                                    <button
-                                        onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                                        disabled={currentPage === 1}
-                                        className="px-3 py-1 border rounded disabled:opacity-50"
-                                    >
-                                        &lt;
-                                    </button>
+                                    <button onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))} disabled={currentPage === 1} className="px-3 py-1 border rounded disabled:opacity-50">&lt;</button>
 
-                                    {/* Page numbers */}
                                     {Array.from({ length: totalPages }, (_, i) => (
-                                        <button
-                                            key={i}
-                                            onClick={() => setCurrentPage(i + 1)}
-                                            className={`px-3 py-1 border rounded ${currentPage === i + 1 ? "bg-blue-500 text-white" : ""
-                                                }`}
-                                        >
+                                        <button key={i} onClick={() => setCurrentPage(i + 1)} className={`px-3 py-1 border rounded ${currentPage === i + 1 ? "bg-blue-500 text-white" : ""}`}>
                                             {i + 1}
                                         </button>
                                     ))}
 
-                                    {/* Next */}
-                                    <button
-                                        onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-                                        disabled={currentPage === totalPages}
-                                        className="px-3 py-1 border rounded disabled:opacity-50"
-                                    >
-                                        &gt;
-                                    </button>
+                                    <button onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))} disabled={currentPage === totalPages} className="px-3 py-1 border rounded disabled:opacity-50">&gt;</button>
                                 </div>
                             </div>
                         </td>

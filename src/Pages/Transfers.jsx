@@ -1,9 +1,41 @@
-import React, { useState } from 'react'; 
+import React, { useState } from 'react'
 import TransferTable from '../Components/TransferTable';
 import { Link } from "react-router-dom";
 
 function Transfers() {
-  const [showFilters, setShowFilters] = useState(false); 
+  const [showFilters, setShowFilters] = useState(false);
+
+  // Filter states
+  const [fromBase, setFromBase] = useState("");
+  const [toBase, setToBase] = useState("");
+  const [status, setStatus] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  // Applied filters for TransferTable
+  const [appliedFilters, setAppliedFilters] = useState({});
+
+  const handleReset = () => {
+    setFromBase("");
+    setToBase("");
+    setStatus("");
+    setSearchQuery("");
+    setStartDate("");
+    setEndDate("");
+    setAppliedFilters({}); // reset table filters
+  };
+
+  const handleApply = () => {
+    setAppliedFilters({
+      fromBase,
+      toBase,
+      status,
+      searchQuery,
+      startDate,
+      endDate
+    });
+  };
 
   return (
     <>
@@ -11,7 +43,6 @@ function Transfers() {
         <div className='flex justify-between items-center'>
           <h1 className='text-2xl font-semibold text-gray-900'>Transfers</h1>
           <div className='flex space-x-3'>
-            {/* 🔥 Toggle filter box */}
             <button
               onClick={() => setShowFilters(!showFilters)}
               className='h-[37px] w-[102px] bg-white shadow flex justify-center items-center rounded-lg gap-2'
@@ -25,7 +56,8 @@ function Transfers() {
             </button>
             <Link
               to="/assets/new"
-              className="h-[37px] w-[130px] btn-primary shadow flex justify-center items-center rounded-lg gap-2"  >
+              className="h-[37px] w-[130px] btn-primary shadow flex justify-center items-center rounded-lg gap-2"  
+            >
               <img
                 src="/assets/images/plus.png"
                 alt="cube icon"
@@ -35,97 +67,106 @@ function Transfers() {
           </div>
         </div>
 
-
-        {/* 🔥 Show filter box if showFilters is true */}
         {showFilters && (
           <div className="mt-4 bg-white rounded-lg shadow p-5">
-            {/* Header */}
             <div className="flex justify-between items-center mb-4">
               <h1 className="text-lg font-semibold">Filters</h1>
-              <h1
-                className="cursor-pointer"
-                onClick={() => setShowFilters(false)}
-              >
-                X
-              </h1>
+              <h1 className="cursor-pointer" onClick={() => setShowFilters(false)}>X</h1>
             </div>
 
-            {/* Grid Filters */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {/* From Base */}
               <div className="flex flex-col">
                 <label className="mb-1 text-sm font-medium">From Base</label>
-                <select className="border border-gray-300 rounded-lg h-10 px-2 text-sm">
-                  <option>All Bases</option>
-                  <option>Base Alpha</option>
-                  <option>Base Bravo</option>
-                  <option>Base Charlie</option>
+                <select
+                  value={fromBase}
+                  onChange={(e) => setFromBase(e.target.value)}
+                  className="border border-gray-300 rounded-lg h-10 px-2 text-sm"
+                >
+                  <option value="">All Bases</option>
+                  <option value="Base Alpha">Base Alpha</option>
+                  <option value="Base Bravo">Base Bravo</option>
+                  <option value="Base Charlie">Base Charlie</option>
                 </select>
               </div>
 
-              {/* To Base */}
               <div className="flex flex-col">
                 <label className="mb-1 text-sm font-medium">To Base</label>
-                <select className="border border-gray-300 rounded-lg h-10 px-2 text-sm">
-                  <option>All Bases</option>
-                  <option>Base Alpha</option>
-                  <option>Base Bravo</option>
-                  <option>Base Charlie</option>
+                <select
+                  value={toBase}
+                  onChange={(e) => setToBase(e.target.value)}
+                  className="border border-gray-300 rounded-lg h-10 px-2 text-sm"
+                >
+                  <option value="">All Bases</option>
+                  <option value="Base Alpha">Base Alpha</option>
+                  <option value="Base Bravo">Base Bravo</option>
+                  <option value="Base Charlie">Base Charlie</option>
                 </select>
               </div>
 
-              {/* Status */}
               <div className="flex flex-col">
                 <label className="mb-1 text-sm font-medium">Status</label>
-                <select className="border border-gray-300 rounded-lg h-10 px-2 text-sm">
-                  <option>All Statuses</option>
-                  <option>Pending</option>
-                  <option>Completed</option>
-                  <option>In Progress</option>
+                <select
+                  value={status}
+                  onChange={(e) => setStatus(e.target.value)}
+                  className="border border-gray-300 rounded-lg h-10 px-2 text-sm"
+                >
+                  <option value="">All Statuses</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Completed">Completed</option>
+                  <option value="Rejected">Rejected</option>
                 </select>
               </div>
 
-              {/* Start Date */}
               <div className="flex flex-col">
                 <label className="mb-1 text-sm font-medium">Start Date</label>
                 <input
                   type="date"
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
                   className="border border-gray-300 rounded-lg h-10 px-2 text-sm"
                 />
               </div>
 
-              {/* End Date */}
               <div className="flex flex-col">
                 <label className="mb-1 text-sm font-medium">End Date</label>
                 <input
                   type="date"
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
                   className="border border-gray-300 rounded-lg h-10 px-2 text-sm"
                 />
               </div>
 
-              {/* Search */}
               <div className="flex flex-col">
                 <label className="mb-1 text-sm font-medium">Search</label>
                 <input
                   type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search by asset name, type, or base"
                   className="border border-gray-300 rounded-lg h-10 px-2 text-sm"
                 />
               </div>
             </div>
 
-            {/* Buttons */}
             <div className="flex justify-end gap-3 mt-5">
-              <button className="h-10 px-5 rounded border border-gray-300 bg-white shadow">
+              <button
+                onClick={handleReset}
+                className="h-10 px-5 rounded border border-gray-300 bg-white shadow"
+              >
                 Reset
               </button>
-              <button className="h-10 px-5 rounded bg-blue-500 text-white shadow">
+              <button
+                onClick={handleApply}
+                className="h-10 px-5 rounded bg-blue-500 text-white shadow"
+              >
                 Apply
               </button>
             </div>
           </div>
         )}
-        <TransferTable />
+
+        <TransferTable filters={appliedFilters} />
       </div>
     </>
   );
