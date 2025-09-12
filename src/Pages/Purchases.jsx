@@ -13,6 +13,8 @@ function Purchases() {
   const [endDate, setEndDate] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
 
+  const [appliedFilters, setAppliedFilters] = useState({});
+
   const resetFilters = () => {
     setFromBase('');
     setToBase('');
@@ -20,6 +22,21 @@ function Purchases() {
     setStartDate('');
     setEndDate('');
     setSearchQuery('');
+  };
+
+
+  const handleApply = () => {
+    const newFilters = {
+      fromBase,
+      toBase,
+      status,
+      searchQuery,
+      startDate,
+      endDate
+    };
+    console.log('Applying filters:', newFilters);
+    setAppliedFilters(newFilters);
+    setShowFilters(false);
   };
 
   return (
@@ -101,14 +118,14 @@ function Purchases() {
 
           <div className="flex justify-end gap-3 mt-5">
             <button onClick={resetFilters} className="h-10 px-5 rounded border border-gray-300 bg-white shadow">Reset</button>
-            <button className="h-10 px-5 rounded bg-blue-500 text-white shadow">Apply</button>
+            <button onClick={handleApply} className="h-10 px-5 rounded bg-blue-500 text-white shadow">Apply</button>
           </div>
         </div>
       )}
 
       {/* 🔹 Pass filter props to PurchasesTable */}
       <PurchasesTable
-        filters={{ fromBase, toBase, status, startDate, endDate, searchQuery }}
+        filters={appliedFilters}
       />
     </div>
   );

@@ -13,7 +13,7 @@ import CreateAssets from "./Pages/CreateAssets";
 import CreateAssignment from "./Pages/CreateAssignment"
 import CreateExpenditure from "./Pages/CreateExpenditure"
 import CreatePurchase from "./Pages/CreatePurchase"
-import CreateTransfer from "./Pages/CreateTransfer"
+import Profile from "./Pages/Profile"
 
 
 function App() {
@@ -38,6 +38,7 @@ function App() {
         <Route path="/expenditure" element={<Expenditures />} />
         <Route path="/expenditure/new" element={<CreateExpenditure />} />
         <Route path="/users" element={<Users />} />
+         <Route path="/profile" element={<Profile />} />
         <Route path="/settings" element={<Settings />} />
       </Route>
     </Routes>

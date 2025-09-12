@@ -27,7 +27,7 @@ function Assignments() {
     setAppliedFilters({});
   };
 
-  // apply filters
+  // apply filters (👉 fixed search key to `searchQuery`)
   const handleApply = () => {
     setAppliedFilters({
       ...(fromBase && { fromBase }),
@@ -35,7 +35,7 @@ function Assignments() {
       ...(status && { status }),
       ...(startDate && { startDate }),
       ...(endDate && { endDate }),
-      ...(searchQuery && { search: searchQuery }),
+      ...(searchQuery && { searchQuery: searchQuery }), // 🔑 changed here
     });
     setShowFilters(false);
   };

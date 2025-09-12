@@ -2,7 +2,7 @@ import React from 'react'
 
 function Card1() {
     return (
-        <div className='pr-4  pl-4 mt-3 flex flex-col sm:flex-row items-start sm:items-center gap-5 bg-white shadow-md rounded-lg mr-4 lg:max-w-[1128px] py-4'>
+        <div className='pr-4  pl-4 mt-3 flex flex-col sm:flex-row items-start sm:items-center gap-5 bg-white shadow-md rounded-lg mr-4 lg:max-w-[1300px] py-4'>
             
             {/* Base */}
             <div className='flex flex-col justify-between w-full sm:flex-1 min-w-[200px]'>

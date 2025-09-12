@@ -9,12 +9,15 @@ function AssignmentTable({ filters }) {
 
   useEffect(() => {
     const skip = (currentPage - 1) * itemsPerPage;
+
+    // 🔹 Apply filters and map searchQuery to 'search'
     const queryParams = new URLSearchParams({
       sortBy: "startDate",
       sortOrder: "desc",
       limit: itemsPerPage,
       skip,
-      ...filters, // ✅ apply filters here
+      ...filters,
+      ...(filters.searchQuery && { search: filters.searchQuery }), // ✅ search works now
     });
 
     fetchWithAuth(
@@ -35,7 +38,7 @@ function AssignmentTable({ filters }) {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   return (
-    <div className="mt-5">
+    <div className="mt-5 overflow-x-auto">
       <table className="w-full bg-white shadow">
         <thead className="bg-gray-50">
           <tr>

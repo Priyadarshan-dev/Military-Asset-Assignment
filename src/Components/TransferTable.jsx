@@ -40,7 +40,8 @@ function TransferTable({ filters }) {
     const totalPages = Math.ceil(totalItems / itemsPerPage);
 
     return (
-        <div className="mt-5">
+        <div className="mt-5 overflow-x-auto">
+
             <table className="w-full bg-white shadow">
                 <thead className="bg-gray-50">
                     <tr>

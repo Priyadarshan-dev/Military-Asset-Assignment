@@ -18,7 +18,7 @@ function AssetTable({ filters }) {
         setTotalItems(json.total || json.count || 50);
       })
       .catch((err) => console.error(err));
-  }, [currentPage, itemsPerPage, filters]); 
+  }, [currentPage, itemsPerPage, filters]);
 
   if (!data) return <p>Loading...</p>;
 
@@ -26,7 +26,7 @@ function AssetTable({ filters }) {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   return (
-    <div className="mt-5">
+    <div className="mt-5 overflow-x-auto">
       <table className="h-[595px] w-full bg-white shadow">
         <thead className="bg-gray-50">
           <tr>
@@ -106,9 +106,8 @@ function AssetTable({ filters }) {
                     <button
                       key={i}
                       onClick={() => setCurrentPage(i + 1)}
-                      className={`px-3 py-1 border rounded ${
-                        currentPage === i + 1 ? "bg-blue-500 text-white" : ""
-                      }`}
+                      className={`px-3 py-1 border rounded ${currentPage === i + 1 ? "bg-blue-500 text-white" : ""
+                        }`}
                     >
                       {i + 1}
                     </button>

@@ -22,7 +22,7 @@ function ExpenditureTable({ filters }) {
         ...(filters.status && { status: filters.status }),
         ...(filters.startDate && { startDate: filters.startDate }),
         ...(filters.endDate && { endDate: filters.endDate }),
-        ...(filters.search && { search: filters.search }),
+        ...(filters.search && { search: filters.search }), // ✅ search filter added
       });
 
       const json = await fetchWithAuth(
@@ -47,7 +47,7 @@ function ExpenditureTable({ filters }) {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="mt-5">
+    <div className="mt-5 overflow-x-auto">
       <table className="w-full bg-white shadow">
         <thead className="bg-gray-50">
           <tr>

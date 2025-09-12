@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function Expenditures() {
   const [showFilters, setShowFilters] = useState(false);
 
-  // Filters state
+  // Filters state (for input fields)
   const [filters, setFilters] = useState({
     fromBase: "",
     toBase: "",
@@ -15,7 +15,10 @@ function Expenditures() {
     search: "",
   });
 
-  // Handle change
+  // Applied filters (actually sent to table)
+  const [appliedFilters, setAppliedFilters] = useState({});
+
+  // Handle input changes
   const handleFilterChange = (e) => {
     setFilters({
       ...filters,
@@ -33,11 +36,25 @@ function Expenditures() {
       endDate: "",
       search: "",
     });
+    setAppliedFilters({});
+  };
+
+  // Apply filters
+  const handleApply = () => {
+    setAppliedFilters({
+      ...(filters.fromBase && { fromBase: filters.fromBase }),
+      ...(filters.toBase && { toBase: filters.toBase }),
+      ...(filters.status && { status: filters.status }),
+      ...(filters.startDate && { startDate: filters.startDate }),
+      ...(filters.endDate && { endDate: filters.endDate }),
+      ...(filters.search && { search: filters.search }),
+    });
+    setShowFilters(false);
   };
 
   return (
     <>
-      <div className='pt-[50px] pl-[72px] justify-start pr-[50px]'>
+      <div className='pt-[50px] pl-[72px] pr-[50px]'>
         <div className='flex justify-between items-center'>
           <h1 className='text-2xl font-semibold text-gray-900'>Expenditures</h1>
           <div className='flex space-x-3'>
@@ -76,7 +93,7 @@ function Expenditures() {
                   onChange={handleFilterChange}
                   className="border border-gray-300 rounded-lg h-10 px-2 text-sm"
                 >
-                  <option>All Bases</option>
+                  <option value="">All Bases</option>
                   <option>Base Alpha</option>
                   <option>Base Bravo</option>
                   <option>Base Charlie</option>
@@ -92,7 +109,7 @@ function Expenditures() {
                   onChange={handleFilterChange}
                   className="border border-gray-300 rounded-lg h-10 px-2 text-sm"
                 >
-                  <option>All Bases</option>
+                  <option value="">All Bases</option>
                   <option>Base Alpha</option>
                   <option>Base Bravo</option>
                   <option>Base Charlie</option>
@@ -108,7 +125,7 @@ function Expenditures() {
                   onChange={handleFilterChange}
                   className="border border-gray-300 rounded-lg h-10 px-2 text-sm"
                 >
-                  <option>All Statuses</option>
+                  <option value="">All Statuses</option>
                   <option>Pending</option>
                   <option>Completed</option>
                   <option>In Progress</option>
@@ -160,12 +177,18 @@ function Expenditures() {
               >
                 Reset
               </button>
+              <button
+                className="h-10 px-5 rounded bg-blue-500 text-white shadow"
+                onClick={handleApply}
+              >
+                Apply
+              </button>
             </div>
           </div>
         )}
 
-        {/* Pass filters to table */}
-        <ExpenditureTable filters={filters} />
+        {/* Pass applied filters to table */}
+        <ExpenditureTable filters={appliedFilters} />
       </div>
     </>
   );
